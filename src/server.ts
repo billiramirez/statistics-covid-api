@@ -1,4 +1,6 @@
 import { NextFunction } from "express";
+import { connect } from "mongoose";
+import { keys } from "./config/keys";
 import statusCodes from "./utils/statusCodes";
 
 const app = require("express")();
@@ -9,6 +11,17 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(bodyParser.json());
+
+/**
+ * Let's connect to the database
+ */
+
+connect(
+  `mongodb+srv://${keys.mongoUser}:${keys.mongoPassword}@cluster0.c6qak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+  () => {
+    console.log("Connected to Mongo");
+  },
+);
 
 openapi.initialize({
   apiDoc: require("./api-routes"),
