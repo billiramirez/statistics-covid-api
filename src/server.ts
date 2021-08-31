@@ -29,6 +29,8 @@ openapi.initialize({
   validateApiDoc: true,
   docsPath: "/openapi.json",
   paths: path.resolve(__dirname, "controllers/v1"),
+  routesGlob: "**/*.{ts,js}",
+  routesIndexFileRegExp: /(?:index)?\.[tj]s$/,
   errorMiddleware(err: any, req: Request, res: any, next: NextFunction) {
     // logger.error(err, "error-handler");
     console.log("err:   ", err);
