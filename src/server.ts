@@ -1,10 +1,10 @@
 import { NextFunction } from "express";
-import swaggerJsdoc from "swagger-jsdoc";
+import { connect } from "mongoose";
+import { keys } from "./config/keys";
 import statusCodes from "./utils/statusCodes";
 
 const app = require("express")();
 const bodyParser = require("body-parser");
-// normally you'd just do require('express-openapi'), but this is for test purposes.
 const openapi = require("express-openapi");
 const path = require("path");
 const cors = require("cors");
@@ -12,12 +12,25 @@ const cors = require("cors");
 app.use(cors());
 app.use(bodyParser.json());
 
+/**
+ * Let's connect to the database
+ */
+
+connect(
+  `mongodb+srv://${keys.mongoUser}:${keys.mongoPassword}@cluster0.c6qak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+  () => {
+    console.log("Connected to Mongo");
+  },
+);
+
 openapi.initialize({
   apiDoc: require("./api-routes"),
   app: app,
   validateApiDoc: true,
   docsPath: "/openapi.json",
   paths: path.resolve(__dirname, "controllers/v1"),
+  routesGlob: "**/*.{ts,js}",
+  routesIndexFileRegExp: /(?:index)?\.[tj]s$/,
   errorMiddleware(err: any, req: Request, res: any, next: NextFunction) {
     // logger.error(err, "error-handler");
     console.log("err:   ", err);
@@ -40,7 +53,7 @@ openapi.initialize({
         error: {
           errors: err.errors,
           message: `Your request is missing or has invalid parameters in field(s) ${fieldsWithErrors.join(
-            ","
+            ",",
           )}. Please verify and resubmit.`,
         },
       });

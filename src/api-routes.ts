@@ -4,7 +4,7 @@ module.exports = {
   basePath: "/v1",
 
   info: {
-    title: "express-openapi Covid Statistics",
+    title: "Covid-19 Statistics",
     version: "3.0.0",
   },
 
