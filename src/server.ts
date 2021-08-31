@@ -1,10 +1,8 @@
 import { NextFunction } from "express";
-import swaggerJsdoc from "swagger-jsdoc";
 import statusCodes from "./utils/statusCodes";
 
 const app = require("express")();
 const bodyParser = require("body-parser");
-// normally you'd just do require('express-openapi'), but this is for test purposes.
 const openapi = require("express-openapi");
 const path = require("path");
 const cors = require("cors");
@@ -40,7 +38,7 @@ openapi.initialize({
         error: {
           errors: err.errors,
           message: `Your request is missing or has invalid parameters in field(s) ${fieldsWithErrors.join(
-            ","
+            ",",
           )}. Please verify and resubmit.`,
         },
       });
