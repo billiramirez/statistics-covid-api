@@ -1,8 +1,10 @@
 import { Operation } from "express-openapi";
+import protectedRoute from "../../middlewares/protectedRoutes";
 import Statistics from "../../models/statistics";
 import { fetchInitialData } from "../../services";
 
 export const GET: Operation = [
+  protectedRoute,
   async (req, res, next) => {
     const [initialData, _deletedMany] = await Promise.all([
       fetchInitialData(),
