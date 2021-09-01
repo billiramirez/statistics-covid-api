@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build-ts": "tsc",
     "start": "node ./dist/app.js",
-    "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon ./dist/app.js\""
+    "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon ./dist/app.js\"",
+    "postinstall": "npm run build-ts"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -26,6 +28,7 @@
     "express-openapi": "^9.2.0",
     "mongoose": "^6.0.3",
     "ts-node": "^10.2.1",
+    "tsc": "^2.0.3",
     "tsc-watch": "^4.5.0"
   }
 }
