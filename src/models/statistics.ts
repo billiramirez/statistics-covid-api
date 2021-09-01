@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
-interface Statistics {
+export interface IStatistics {
   continent: string;
   country: string;
   population: number;
@@ -27,7 +27,7 @@ interface Statistics {
 }
 
 // 2. Create a Schema corresponding to the document interface.
-const schema = new Schema<Statistics>({
+const schema = new Schema<IStatistics>({
   continent: { type: String },
   country: { type: String },
   population: { type: Number },
@@ -53,6 +53,6 @@ const schema = new Schema<Statistics>({
 });
 
 // 3. Create a Model.
-const StatisticModel = model<Statistics>("Statistic", schema);
+const StatisticModel = model<IStatistics>("Statistic", schema);
 
 export default StatisticModel;

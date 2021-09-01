@@ -1,13 +1,21 @@
 module.exports = {
   swagger: "2.0",
-  host: "statistics-covid",
+  host: "localhost:4000",
   basePath: "/v1",
-
   info: {
     title: "Covid-19 Statistics",
     version: "3.0.0",
   },
-
+  schemes: ["http", "https"],
+  securityDefinitions: {
+    Bearer: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+    },
+  },
+  consumes: ["application/json"],
+  produces: ["application/json"],
   definitions: {
     Error: {
       additionalProperties: true,
@@ -17,8 +25,46 @@ module.exports = {
         name: {
           type: "string",
         },
+        email: {
+          type: "string",
+        },
       },
       required: ["name"],
+    },
+    Statistics: {
+      type: "object",
+      required: [
+        "cases",
+        "deaths",
+        "tests",
+        "continent",
+        "country",
+        "population",
+        "day",
+        "time",
+      ],
+      properties: {
+        cases: {
+          type: "object",
+          required: ["active", "recovered", "total"],
+          properties: {
+            active: { type: "number" },
+            recovered: { type: "number" },
+            total: { type: "number" },
+          },
+        },
+        deaths: {
+          type: "object",
+        },
+        tests: {
+          type: "object",
+        },
+        continent: { type: "string" },
+        country: { type: "string" },
+        population: { type: "number" },
+        day: { type: "string" },
+        time: { type: "string" },
+      },
     },
   },
 
