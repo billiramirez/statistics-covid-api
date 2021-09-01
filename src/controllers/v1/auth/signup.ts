@@ -12,13 +12,18 @@ export const POST: Operation = [
           .status(400)
           .json({ success: false, status: "RESOURCE_ALREADY_EXISTS" });
 
-      const token = await signUp(email, password);
-      if (!token)
+      const response = await signUp(email, password);
+
+      if (!response || !response.token || !response.refreshToken)
         return res
           .status(500)
           .json({ success: false, status: "INTERNAL_SERVER_ERROR" });
 
-      res.status(500).json({ success: true, token: token });
+      res.status(200).json({
+        success: true,
+        token: response.token,
+        refreshToken: response.refreshToken,
+      });
     } catch (err) {
       res.status(500).json({ success: false, status: "INTERNAL_SERVER_ERROR" });
     }
@@ -32,8 +37,8 @@ POST.apiDoc = {
   parameters: [
     {
       in: "body",
-      name: "userr",
-      description: "The entire object for a New Statistic Entry",
+      name: "user",
+      description: "The entire object for a Sign Up",
       required: true,
       schema: {
         $ref: "#/definitions/UserCredentials",

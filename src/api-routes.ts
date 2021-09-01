@@ -31,6 +31,12 @@ module.exports = {
       },
       required: ["email", "password"],
     },
+    RefreshToken: {
+      type: "object",
+      properties: {
+        token: { type: "string" },
+      },
+    },
     Statistics: {
       type: "object",
       required: [

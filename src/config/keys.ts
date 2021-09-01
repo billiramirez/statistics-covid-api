@@ -8,4 +8,5 @@ export const keys = {
   mongoUser: process.env.MONGO_USER,
   mongoPassword: process.env.MONGO_PASSWORD,
   authToken: process.env.AUTH_TOKEN,
+  authRefreshToken: process.env.AUTH_REFRESH_TOKEN,
 };

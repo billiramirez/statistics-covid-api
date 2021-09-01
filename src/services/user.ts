@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { keys } from "../config/keys";
+import Token from "../models/tokens";
 import User from "../models/user";
 
 export const createPassword = async (password: string) => {
@@ -23,28 +24,54 @@ export const signIn = async (email: string, password: string) => {
     return null;
   }
   if ((await checkPassword(password, user.password)) === true) {
-    return generateLoginToken(user);
+    const token = generateLoginToken(user, false);
+    const refreshToken = generateLoginToken(user, true);
+
+    await Token.updateOne({ userId: user.id }, { $set: { refreshToken } });
+
+    return {
+      token,
+      refreshToken,
+    };
   }
 
   return null;
 };
 
 export const findUserByEmail = async (email: string) => {
-  console.log("email ", email);
   return await User.findOne({ email });
 };
 
-export const signUp = async (email: string, password: string) => {
+export const signUp = async (
+  email: string,
+  password: string,
+): Promise<{ token: string; refreshToken: string } | null> => {
   const newPassword = await createPassword(password);
   const userInstance = new User({ email: email, password: newPassword });
   const newUser = await userInstance.save();
 
   if (!newUser) return null;
 
-  return generateLoginToken(newUser);
+  const token = generateLoginToken(newUser, false);
+  const refreshToken = generateLoginToken(newUser, true);
+
+  if (token && refreshToken) {
+    // Save the new refresh token
+    const newToken = new Token({ refreshToken, userId: newUser.id });
+    const savedToken = await newToken.save();
+
+    if (!savedToken) return null;
+
+    return {
+      token,
+      refreshToken,
+    };
+  }
+
+  return null;
 };
 
-export const generateLoginToken = (user: any) => {
+export const generateLoginToken = (user: any, refresh: boolean) => {
   if (!user) {
     throw new Error("Invalid User");
   }
@@ -55,11 +82,15 @@ export const generateLoginToken = (user: any) => {
   const payload = {
     user: userInfo,
   };
-  if (!keys.authToken) return;
-  const token = jwt.sign(payload, keys.authToken, {
-    algorithm: "HS256",
-    expiresIn: "1h",
-    subject: `${user.id}`,
-  });
+  if (!keys.authToken || !keys.authRefreshToken) return;
+  const token = jwt.sign(
+    payload,
+    !refresh ? keys.authToken : keys.authRefreshToken,
+    {
+      algorithm: "HS256",
+      expiresIn: !refresh ? "1h" : "5h",
+      subject: `${user.id}`,
+    },
+  );
   return token;
 };
