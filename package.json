@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsc-watch --project . --outDir ./dist --onSuccess \"node ./dist/app.js\"",
+    "start": "node ./dist/app.js",
     "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon ./dist/app.js\""
   },
   "devDependencies": {
