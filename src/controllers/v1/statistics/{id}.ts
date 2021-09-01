@@ -38,5 +38,22 @@ GET.apiDoc = {
         $ref: "#/definitions/Error",
       },
     },
+    200: {
+      description: "Statistic Fetched  Succesfully",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          statistics: {
+            type: "object",
+            properties: {
+              schema: {
+                $ref: "#/definitions/Statistics",
+              },
+            },
+          },
+        },
+      },
+    },
   },
+  security: [{ Bearer: [] }],
 };

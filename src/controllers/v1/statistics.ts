@@ -39,6 +39,27 @@ GET.apiDoc = {
         $ref: "#/definitions/Error",
       },
     },
+    200: {
+      description: "The list of existing studies",
+      schema: {
+        type: "object",
+        properties: {
+          success: { type: "boolean" },
+          statistics: {
+            type: "object",
+          },
+        },
+      },
+    },
+    500: {
+      description: "Internal Server Error",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          message: { type: "string" },
+        },
+      },
+    },
   },
 };
 
@@ -64,5 +85,45 @@ POST.apiDoc = {
         $ref: "#/definitions/Error",
       },
     },
+    200: {
+      description: "Statistic Record Added Succesfully",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          statistics: {
+            type: "object",
+            properties: {
+              schema: {
+                $ref: "#/definitions/Statistics",
+              },
+            },
+          },
+        },
+      },
+    },
+    401: {
+      description: "Unauthorized Operation",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          error: {
+            type: "object",
+            properties: {
+              message: { type: "string" },
+            },
+          },
+        },
+      },
+    },
+    500: {
+      description: "Internal Server Error",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          message: { type: "string" },
+        },
+      },
+    },
   },
+  security: [{ Bearer: [] }],
 };

@@ -40,5 +40,23 @@ POST.apiDoc = {
         $ref: "#/definitions/Error",
       },
     },
+    200: {
+      description: "User Logged In",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          token: { type: "string" },
+        },
+      },
+    },
+    500: {
+      description: "Internal Server Error",
+      schema: {
+        properties: {
+          success: { type: "boolean" },
+          message: { type: "string" },
+        },
+      },
+    },
   },
 };
