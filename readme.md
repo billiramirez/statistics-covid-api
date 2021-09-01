@@ -64,7 +64,11 @@ AUTH_TOKEN=
   yarn start:dev
 ```
 
-This will run in the `http://localhost:4000/v1/statistcs`
+You need to seed the database with initial data, you can go to `http://localhost:4000/v1/statistcs` to sync data, for this endpoint you'll need to be logged in.
+
+If you need to sign up, you can go to: `http://localhost:4000/v1/auth/signup` to create your account, and this will provide you a `token` you can use for performing this operation.
+
+Then you can try this endpoint `http://localhost:4000/v1/statistcs`
 
 ## Desing of the API
 
