@@ -20,16 +20,16 @@ module.exports = {
     Error: {
       additionalProperties: true,
     },
-    User: {
+    UserCredentials: {
       properties: {
-        name: {
-          type: "string",
-        },
         email: {
           type: "string",
         },
+        password: {
+          type: "string",
+        },
       },
-      required: ["name"],
+      required: ["email", "password"],
     },
     Statistics: {
       type: "object",

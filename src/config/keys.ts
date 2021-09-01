@@ -7,4 +7,5 @@ export const keys = {
   apiXRapidApiUrl: process.env.API_X_RAPID_API_URL,
   mongoUser: process.env.MONGO_USER,
   mongoPassword: process.env.MONGO_PASSWORD,
+  authToken: process.env.AUTH_TOKEN,
 };
