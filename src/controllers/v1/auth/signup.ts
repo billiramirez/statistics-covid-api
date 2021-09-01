@@ -18,7 +18,7 @@ export const POST: Operation = [
           .status(500)
           .json({ success: false, status: "INTERNAL_SERVER_ERROR" });
 
-      res.status(500).json({ success: true, token: token });
+      res.status(200).json({ success: true, token: token });
     } catch (err) {
       res.status(500).json({ success: false, status: "INTERNAL_SERVER_ERROR" });
     }
@@ -28,12 +28,12 @@ export const POST: Operation = [
 POST.apiDoc = {
   description: "Sign Up a User",
   operationId: "signupAUser",
-  tags: ["users", "creating"],
+  tags: ["users"],
   parameters: [
     {
       in: "body",
-      name: "userr",
-      description: "The entire object for a New Statistic Entry",
+      name: "user",
+      description: "The entire object credentials for Sign up",
       required: true,
       schema: {
         $ref: "#/definitions/UserCredentials",

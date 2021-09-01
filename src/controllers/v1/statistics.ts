@@ -20,7 +20,7 @@ export const POST: Operation = [
     const statistic: IStatistics = req.body;
     try {
       const newStatistic = await createStatistic(statistic);
-      res.status(500).json({ success: true, statistic: newStatistic });
+      res.status(200).json({ success: true, statistic: newStatistic });
     } catch (err) {
       res.status(500).json({ success: false, status: "INTERNAL_SERVER_ERROR" });
     }

@@ -29,10 +29,8 @@ export const signIn = async (email: string, password: string) => {
   return null;
 };
 
-export const findUserByEmail = async (email: string) => {
-  console.log("email ", email);
-  return await User.findOne({ email });
-};
+export const findUserByEmail = async (email: string) =>
+  await User.findOne({ email });
 
 export const signUp = async (email: string, password: string) => {
   const newPassword = await createPassword(password);
