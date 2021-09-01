@@ -1,4 +1,5 @@
 import { Operation } from "express-openapi";
+import protectedRoute from "../../middlewares/protectedRoutes";
 import { IStatistics } from "../../models/statistics";
 import { createStatistic, getAllStatistics } from "../../services";
 
@@ -14,6 +15,7 @@ export const GET: Operation = [
 ];
 
 export const POST: Operation = [
+  protectedRoute,
   async (req: any, res: any, next: any) => {
     const statistic: IStatistics = req.body;
     try {

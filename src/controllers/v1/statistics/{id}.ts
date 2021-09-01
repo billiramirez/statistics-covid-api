@@ -1,4 +1,5 @@
 import { Operation } from "express-openapi";
+import protectedRoute from "../../../middlewares/protectedRoutes";
 import { getStatisticByCountryName } from "../../../services";
 export const parameters = [
   {
@@ -10,6 +11,7 @@ export const parameters = [
 ];
 
 export const GET: Operation = [
+  protectedRoute,
   async (req: any, res: any, next: any) => {
     const countryId = req.params.id;
     try {

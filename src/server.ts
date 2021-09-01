@@ -1,6 +1,9 @@
 import { NextFunction } from "express";
 import { connect } from "mongoose";
+import logger from "morgan";
+import passport from "passport";
 import { keys } from "./config/keys";
+import authMiddleware from "./middlewares/auth";
 import statusCodes from "./utils/statusCodes";
 
 const app = require("express")();
@@ -11,6 +14,9 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(logger("dev"));
+app.use(passport.initialize());
+app.use(authMiddleware);
 
 /**
  * Let's connect to the database
