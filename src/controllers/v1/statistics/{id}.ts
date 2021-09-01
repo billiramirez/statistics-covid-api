@@ -1,5 +1,5 @@
 import { Operation } from "express-openapi";
-import Statistic from "../../../models/statistics";
+import { getStatisticByCountryName } from "../../../services";
 export const parameters = [
   {
     in: "path",
@@ -13,7 +13,7 @@ export const GET: Operation = [
   async (req: any, res: any, next: any) => {
     const countryId = req.params.id;
     try {
-      const statisticDetail = await Statistic.findOne({ country: countryId });
+      const statisticDetail = await getStatisticByCountryName(countryId);
       if (!statisticDetail)
         res.status(404).json({ sucess: false, status: "RESOURCE_NOT_FOUND" });
 
