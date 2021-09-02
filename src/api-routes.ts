@@ -31,6 +31,24 @@ module.exports = {
       },
       required: ["email", "password"],
     },
+    StatisticEntry: {
+      type: "object",
+      required: ["cases", "deaths", "tests"],
+      properties: {
+        cases: {
+          type: "object",
+          required: ["new", "active", "critical", "recovered"],
+          properties: {
+            new: { type: "number" },
+            active: { type: "number" },
+            critical: { type: "number" },
+            recovered: { type: "number" },
+          },
+        },
+        deaths: { type: "number" },
+        tests: { type: "number" },
+      },
+    },
     Statistics: {
       type: "object",
       required: [
