@@ -6,20 +6,17 @@ export interface IStatistics {
   country: string;
   population: number;
   cases: {
-    new: string;
+    new: number;
     active: number;
     critical: number;
     recovered: number;
-    "1M_pop": string;
     total: number;
   };
   deaths: {
     new: string;
-    "1M_pop": string;
     total: number;
   };
   tests: {
-    "1M_pop": string;
     total: number;
   };
   day: string;
@@ -32,20 +29,17 @@ const schema = new Schema<IStatistics>({
   country: { type: String },
   population: { type: Number },
   cases: {
-    new: { type: String },
+    new: { type: Number },
     active: { type: Number },
     critical: { type: Number },
     recovered: { type: Number },
-    "1M_pop": { type: String },
     total: { type: Number },
   },
   deaths: {
-    new: { type: String },
-    "1M_pop": { type: String },
+    new: { type: Number },
     total: { type: Number },
   },
   tests: {
-    "1M_pop": { type: String },
     total: { type: Number },
   },
   day: { type: String },
